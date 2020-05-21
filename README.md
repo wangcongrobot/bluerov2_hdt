@@ -21,3 +21,5 @@ source devel/setup.bash
 roslaunch bluerov2_hdt integration_scenario_bluerov2.launch
 roslaunch uuv_control_utils send_waypoints_file.launch uuv_name:=bluerov2
 ```
+
+![bluerov2_hdt_ocrasim](images/bluerov2_hdt_ocrasim.gif)
