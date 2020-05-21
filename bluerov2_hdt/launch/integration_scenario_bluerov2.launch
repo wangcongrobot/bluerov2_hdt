@@ -1,0 +1,197 @@
+<launch>
+    <!-- If you want gazebo interface back we need to change gui arg to true and headless to false-->
+    <arg name="gui"          default="true"/>
+    <arg name="headless"     default="false"/>
+    <arg name="paused"       default="false"/>
+    <arg name="set_timeout"  default="false"/>
+    <arg name="timeout"      default="0.0"/>
+
+    <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name"     value="$(find orcawp1_integration)/worlds/integration_scenario.world"/>
+        <arg name="paused"         value="$(arg paused)"/>
+        <arg name="use_sim_time"   value="true"/>
+        <arg name="gui"            value="$(arg gui)"/>
+        <arg name="headless"       value="$(arg headless)"/>
+        <arg name="debug"          value="false"/>
+        <arg name="verbose"        value="true"/>
+    </include>
+
+    <include file="$(find uuv_assistants)/launch/publish_world_ned_frame.launch"/>
+
+    <node name="publish_world_models"
+        pkg="uuv_assistants"
+        type="publish_world_models.py"
+        output="screen">
+        <rosparam subst_value="true">
+            meshes:
+                heightmap:
+                    mesh: package://uuv_gazebo_worlds/models/sand_heightmap/meshes/heightmap.dae
+                    model: sand_heightmap
+                seafloor:
+                    plane: [2000, 2000, 0.1]
+                    pose:
+                        position: [0, 0, -100]
+                north:
+                    plane: [0.1, 2000, 100]
+                    pose:
+                        position: [1000, 0, -50]
+                south:
+                    plane: [0.1, 2000, 100]
+                    pose:
+                        position: [-1000, 0, -50]
+                west:
+                    plane: [2000, 0.1, 100]
+                    pose:
+                        position: [0, -1000, -50]
+                east:
+                    plane: [2000, 0.1, 100]
+                    pose:
+                        position: [0, 1000, -50]
+                wind_turbine:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                      position: [200, 350, -60]
+                      orientation: [0, 0, 0]
+                wind_turbine1:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                      position: [270, 0, -60]
+                      orientation: [0, 0, 0]
+                wind_turbine2:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                      position: [100, 280, -60]
+                      orientation: [0, 0, 0]
+                wind_turbine3:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                      position: [380, 180, -60]
+                      orientation: [0, 0, 0]
+                wind_turbine4:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                      position: [-265, 100, -60]
+                      orientation: [0, 0, 0]
+                wind_turbine5:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                      position: [-160, 170, -60]
+                      orientation: [0, 0, 0]
+
+                wind_turbine6:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                      position: [-240, -180, -60]
+                      orientation: [0, 0, 0]
+                wind_turbine7:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                      position: [-240, -250, -60]
+                      orientation: [0, 0, 0]
+                wind_turbine8:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                      position: [60, -410, -60]
+                      orientation: [0, 0, 0]
+                wind_turbine9:
+                    mesh: package://orcawp1_integration/models/wind_turbine/meshes/wind_turbine.obj
+                    scale: [0.013, 0.013, 0.013]
+                    pose:
+                        position: [0, -390, -60]
+                        orientation: [0, 0, 0]
+                bop_panel:
+                    mesh: package://orcawp1_integration/models/bop_panel/meshes/VentilBlock.obj
+                    pose:
+                        position: [15, 0, -59]
+                        orientation: [0, 0, 0]
+                bop_panel_1:
+                    mesh: package://orcawp1_integration/models/bop_panel/meshes/VentilBlock.obj
+                    pose:
+                        position: [200, -20, -60]
+                        orientation: [0, 0, -3.11]
+                bop_panel_2:
+                    mesh: package://orcawp1_integration/models/bop_panel/meshes/VentilBlock.obj
+                    pose:
+                        position: [230, 0, -60]
+                        orientation: [0, 0, -3.11]
+                bop_panel_9:
+                    mesh: package://orcawp1_integration/models/bop_panel/meshes/VentilBlock.obj
+                    pose:
+                        position: [100, 70, -60]
+                        orientation: [0, 0, -3.11]
+                bop_panel_10:
+                    mesh: package://orcawp1_integration/models/bop_panel/meshes/VentilBlock.obj
+                    pose:
+                        position: [-70, 100, -60]
+                        orientation: [0, 0, -3.11]
+
+        </rosparam>
+    </node>
+    <arg name="namespace" default="bluerov2"/>
+    <arg name="x"         default="25"/>
+    <arg name="y"         default="0"/>
+    <arg name="z"         default="-50"/>
+    <arg name="yaw"       default="-3.11"/>
+    <arg name="joy_id"    default="0"/>
+    <arg name="axis_yaw"  default="0"/>
+    <arg name="axis_x"    default="4"/>
+    <arg name="axis_y"    default="3"/>
+    <arg name="axis_z"    default="1"/>
+
+    <!-- <include file="$(find uuv_descriptions)/launch/upload_rexrov_default.launch">
+        <arg name="mode"      value="test"/>
+        <arg name="namespace" value="$(arg namespace)"/>
+        <arg name="x"         value="$(arg x)"/>
+        <arg name="y"         value="$(arg y)"/>
+        <arg name="z"         value="$(arg z)"/>
+        <arg name="yaw"       value="$(arg yaw)"/>
+    </include> -->
+
+    <include file="$(find bluerov2_gazebo)/launch/start_pid_controller_hdt_demo.launch">
+        <arg name="x"       value="$(arg x)"/>
+        <arg name="y"       value="$(arg y)"/>
+        <arg name="z"       value="$(arg z)"/>
+        <arg name="yaw"     value="$(arg yaw)"/>
+    </include>
+
+    <!-- <include file="$(find uuv_thruster_manager)/launch/thruster_manager.launch">
+        <arg name="uuv_name"   value="$(arg namespace)" />
+        <arg name="model_name" value="rexrov" />
+    </include> -->
+
+    <!-- <group ns="$(arg namespace)">
+        <rosparam file="$(find uuv_control_cascaded_pid)/config/rexrov/inertial.yaml" command="load"/>
+        <rosparam file="$(find uuv_control_cascaded_pid)/config/rexrov/vel_pid_control.yaml" command="load"/>
+
+        <node pkg="uuv_control_cascaded_pid" type="AccelerationControl.py" name="acceleration_control"
+                output="screen">
+        <param name="tf_prefix" type="string" value="$(arg namespace)/" />
+        </node>
+
+        <node pkg="uuv_control_cascaded_pid" type="VelocityControl.py" name="velocity_control"
+            output="screen">
+        <remap from="odom" to="/$(arg namespace)/pose_gt"/>
+        <remap from="cmd_accel" to="/$(arg namespace)/cmd_accel"/>
+        </node>
+    </group> -->
+
+    <!--<node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find uuv_gazebo)/rviz/rexrov_fls.rviz"/> -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find orcawp1_integration)/rviz/environment.rviz"/> -->
+
+
+    <group if="$(arg set_timeout)">
+        <include file="$(find uuv_assistants)/launch/set_simulation_timer.launch">
+            <arg name="timeout" value="$(arg timeout)"/>
+        </include>
+    </group>
+</launch>
