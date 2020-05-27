@@ -55,9 +55,4 @@
     	<arg name="namespace" value="$(arg namespace)"/>
   </include>
 
-  <!-- load controller -->
-  <include file="$(find bluerov2_hdt)/launch/bluerov2_hdt_control.launch">
-
-  </include>
-
 </launch>
