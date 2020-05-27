@@ -157,7 +157,7 @@
         <arg name="yaw"       value="$(arg yaw)"/>
     </include> -->
 
-    <include file="$(find bluerov2_gazebo)/launch/start_pid_controller_hdt_demo.launch">
+    <include file="$(find bluerov2_hdt)/launch/start_bluerov2_hdt_controller_demo.launch">
         <arg name="x"       value="$(arg x)"/>
         <arg name="y"       value="$(arg y)"/>
         <arg name="z"       value="$(arg z)"/>

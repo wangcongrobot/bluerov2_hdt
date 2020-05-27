@@ -95,10 +95,10 @@ def main():
         print("Waiting for server...")
         client.wait_for_server()
         print("Connected to server")
-        # move1()
+        move1()
         move_repeated()
-        # move_disordered()
-        # move_interrupt()
+        move_disordered()
+        move_interrupt()
     except KeyboardInterrupt:
         rospy.signal_shutdown("KeyboardInterrupt")
         raise

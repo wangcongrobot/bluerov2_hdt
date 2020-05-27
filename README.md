@@ -19,7 +19,8 @@ source devel/setup.bash
 
 ```
 roslaunch bluerov2_hdt integration_scenario_bluerov2.launch
+rosrun bluerov2_hdt move_arm.py
 roslaunch uuv_control_utils send_waypoints_file.launch uuv_name:=bluerov2
 ```
 
-![bluerov2_hdt_ocrasim](images/bluerov2_hdt_ocrasim.gif)
+![bluerov2_hdt_ocrasim](images/bluerov2_arm_ocrasimx2.gif)
