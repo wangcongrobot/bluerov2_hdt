@@ -1,0 +1,118 @@
+
+# bluerov2:
+  # Publish all joint states
+  # Creates the /joint_states topic necessary in ROS
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+        
+  arm_pos_controller:
+    type: position_controllers/JointTrajectoryController
+    joints:
+      - hdt/drive1_joint
+      - hdt/drive2_joint
+      - hdt/drive3_joint
+      - hdt/drive4_joint
+      - hdt/drive5_joint
+      - hdt/drive6_joint
+    gains:
+      hdt/drive1_joint:  {p: 500,  d: 30, i: 15, i_clamp: 30}
+      hdt/drive2_joint:  {p: 500,  d: 30, i: 15, i_clamp: 30}
+      hdt/drive3_joint:  {p: 500,  d: 30, i: 15, i_clamp: 30}
+      hdt/drive4_joint:  {p: 500,  d: 30, i: 15, i_clamp: 30}
+      hdt/drive5_joint:  {p: 500,  d: 30, i: 15, i_clamp: 30}
+      hdt/drive6_joint:  {p: 500,  d: 30, i: 15, i_clamp: 30}
+
+  hand_pos_controller:
+    type: position_controllers/JointTrajectoryController
+    joints:
+      - hdt/pincer_joint
+    gains:
+      hdt/pincer_joint:  {p: 500,  d: 30, i: 15, i_clamp: 30}
+
+# bluerov2:
+#   # Publish all joint states ----------------------
+#   # joint_state_controller:
+#   #   type: joint_state_controller/JointStateController
+#   #   publish_rate: 50
+
+#   # Position Controllers ---------------------------
+#   arm_controller:
+#     # type: effort_controllers/JointPositionController
+#     type: effort_controllers/JointTrajectoryController
+#     joints: 
+#       - hdt/drive1_joint
+#       - hdt/drive2_joint
+#       - hdt/drive3_joint
+#       - hdt/drive4_joint
+#       - hdt/drive5_joint
+#       - hdt/drive6_joint
+#     gains:
+#       hdt/drive1_joint: {p: 1000.0, i: 0.01, d: 0.1, i_clamp: 0.0}
+#       hdt/drive2_joint: {p: 1000.0, i: 0.01, d: 0.1, i_clamp: 0.0}
+#       hdt/drive3_joint: {p: 1000.0, i: 0.01, d: 0.1, i_clamp: 0.0}
+#       hdt/drive4_joint: {p: 1000.0, i: 0.01, d: 0.1, i_clamp: 0.0}
+#       hdt/drive5_joint: {p: 1000.0, i: 0.01, d: 0.1, i_clamp: 0.0}
+#       hdt/drive6_joint: {p: 1000.0, i: 0.01, d: 0.1, i_clamp: 0.0}
+
+#   hand_controller:
+#     # type: effort_controllers/JointPositionController
+#     type: effort_controllers/JointTrajectoryController
+#     joints:
+#       - hdt/pincer_joint
+#       - hdt/pincer_joint2
+#     gains:
+#       hdt/pincer_joint: {p: 1000.0, i: 0.01, d: 0.1, i_clamp: 0.0}
+#       hdt/pincer_joint2: {p: 1000.0, i: 0.01, d: 0.1, i_clamp: 0.0}
+
+
+# joint_group_position_controller:
+#   type: position_controllers/JointGroupPositionController
+#   joints:
+#     - drive1_joint
+#     - drive2_joint
+#     - drive3_joint
+#     - drive4_joint
+#     - drive5_joint
+#     - drive6_joint
+
+# arm_controller:
+#   type: position_controllers/JointTrajectoryController
+#   joints:
+#     - drive1_joint
+#     - drive2_joint
+#     - drive3_joint
+#     - drive4_joint
+#     - drive5_joint
+#     - drive6_joint
+#   gains:
+#     drive1_joint:
+#       p: 100
+#       d: 1
+#       i: 1
+#       i_clamp: 1
+#     drive2_joint:
+#       p: 100
+#       d: 1
+#       i: 1
+#       i_clamp: 1
+#     drive3_joint:
+#       p: 100
+#       d: 1
+#       i: 1
+#       i_clamp: 1
+#     drive4_joint:
+#       p: 100
+#       d: 1
+#       i: 1
+#       i_clamp: 1
+#     drive5_joint:
+#       p: 100
+#       d: 1
+#       i: 1
+#       i_clamp: 1
+#     drive6_joint:
+#       p: 100
+#       d: 1
+#       i: 1
+#       i_clamp: 1

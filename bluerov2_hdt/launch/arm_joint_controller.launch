@@ -1,0 +1,56 @@
+<launch>
+    <arg name="uuv_name" />
+    <arg name="arm_name" default="hdt"/>
+
+    <rosparam subst_value="true">
+      $(arg uuv_name):
+        $(arg arm_name):
+          drive1_joint:
+            controller:
+              type: position_controllers/JointTrajectoryController
+              joint: $(arg arm_name)/drive1_joint
+              pid: {p: 500.0, i: 0.0, d: 20.0}
+          drive2_joint:
+            controller:
+              type: position_controllers/JointTrajectoryController
+              joint: $(arg arm_name)/drive2_joint
+              pid: {p: 500.0, i: 0.0, d: 20.0}
+          drive3_joint:
+            controller:
+              type: position_controllers/JointTrajectoryController
+              joint: $(arg arm_name)/drive3_joint
+              pid: {p: 500.0, i: 7.0, d: 20.0}
+          drive4_joint:
+            controller:
+              type: position_controllers/JointTrajectoryController
+              joint: $(arg arm_name)/drive4_joint
+              pid: {p: 500.0, i: 1.0, d: 10.0}
+          drive5_joint:
+            controller:
+              type: position_controllers/JointTrajectoryController
+              joint: $(arg arm_name)/drive5_joint
+              pid: {p: 100.0, i: 0, d: 1.0}
+          drive6_joint:
+            controller:
+              type: position_controllers/JointTrajectoryController
+              joint: $(arg arm_name)/drive6_joint
+              pid: {p: 100.0, i: 0, d: 1.0}
+    </rosparam>
+  
+    <group ns="$(arg uuv_name)">
+      <!-- load the controllers -->
+      <node name="controller_spawner_$(arg arm_name)"
+            pkg="controller_manager"
+            type="spawner"
+            respawn="false"
+            output="screen"
+            args="--namespace /$(arg uuv_name)
+                  /$(arg uuv_name)/$(arg arm_name)/drive1_joint/controller
+                  /$(arg uuv_name)/$(arg arm_name)/drive2_joint/controller
+                  /$(arg uuv_name)/$(arg arm_name)/drive3_joint/controller
+                  /$(arg uuv_name)/$(arg arm_name)/drive4_joint/controller
+                  /$(arg uuv_name)/$(arg arm_name)/drive5_joint/controller
+                  /$(arg uuv_name)/$(arg arm_name)/drive6_joint/controller">
+      </node>
+    </group>
+  </launch>

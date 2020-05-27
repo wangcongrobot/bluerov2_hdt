@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <!-- Launches the controllers according to the hardware interface selected -->
+    <!-- Everythings is spawned under a namespace with the same name as the robot's. -->
+    
+    <arg name="hardware_interface" default="PositionJointInterface"/>
+    <arg name="controllers" default="joint_state_controller pos_joint_trajectory_controller"/>
+    <arg name="robot_name" default="bluerov2" />
+    <arg name="model" default="hdt" />
+    <arg name="joint_state_frequency" default="100" />
+    <arg name="robot_state_frequency" default="100" />
+<!--both frequency were 100-->
+    
+    <!-- Loads joint controller configurations from YAML file to parameter server -->
+    <rosparam ns="bluerov2" file="$(find bluerov2_hdt)/config/bluerov2_hdt_control.yaml" command="load"/>
+    <!--
+    <param name="/$(arg robot_name)/joint_state_controller/publish_rate" value="$(arg joint_state_frequency)" /> 
+    -->
+
+  <!-- ** load  and start joint state controllerosrun  
+  <node  ns="/iiwa" name="joint_state_controller_loader" pkg="controller_manager" type="controller_manager" respawn="false" output="screen"  args="load joint_state_controller"/>
+  <node  ns="/iiwa" name="joint_state_controller_starter" pkg="controller_manager" type="controller_manager" respawn="false" output="screen"  args="start joint_state_controller"/>
+-->
+
+  <!-- ** load and  start PositionJointInterface_trajectory_controller 
+        * the controller can load/start yet doesnt move when we publish the controller topic
+        *  --> 
+  <node ns="/bluerov2" name="PositionJointInterface_trajectory_controller_loader" pkg="controller_manager" type="controller_manager" respawn="false" output="screen"  args="load PositionJointInterface_trajectory_controller"/>
+  <node ns="/bluerov2" name="PositionJointInterface_trajectory_controller_starter" pkg="controller_manager" type="controller_manager" respawn="false" output="screen"  args="start PositionJointInterface_trajectory_controller"/>
+
+
+    <!-- Converts joint states to TF transforms for rviz, etc 
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"   respawn="false" output="screen">
+        <remap from="joint_states" to="/$(arg robot_name)/joint_states" />
+        <param name="publish_frequency" value="$(arg robot_state_frequency)" />
+    </node>
+-->
+    
+</launch>

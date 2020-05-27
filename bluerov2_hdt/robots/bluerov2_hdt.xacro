@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!-- Copyright (c) 2016 The UUV Simulator Authors.
+     All rights reserved.
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<robot name="bluerov2" xmlns:xacro="http://wiki.ros.org/xacro" >
+  <!-- <xacro:arm name="update_rate" default="10"/> -->
+  <xacro:arg name="debug" default="0"/>
+  <xacro:arg name="namespace" default="bluerov2"/>
+  <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
+  <xacro:arg name="use_simplified_mesh" default="false"/>
+  <xacro:arg name="inertial_reference_frame" default="world"/>
+
+  <!-- Include the ROV macro file xacro:bluerov2_base -->
+  <xacro:include filename="$(find bluerov2_description)/urdf/base.xacro"/>
+  <!-- Hydrodynamic and hydrostatic parameters for the vehicle xacro:macro bluerov2_hydro_model -->
+  <xacro:include filename="$(find bluerov2_description)/urdf/gazebo.xacro"/>
+  <!-- Add hdt angler arm -->
+  <xacro:include filename="$(find hdt_description)/robots/hdt_default.xacro" />
+  <!-- <xacro:include filename="$(find oberon7_description)/robots/oberon7_default.xacro" /> -->
+
+<!-- Create the ROV -->
+  <xacro:bluerov2_base 
+    namespace="$(arg namespace)">
+    <!-- use_simplified_mesh="$(arg use_simplified_mesh)" -->
+    <!-- inertial_reference_frame="$(arg inertial_reference_frame)"> -->
+    <!-- The underwater object plugin is given as an input block parameter to
+     allow the addition of external models of manipulator units -->
+    <gazebo>
+      <plugin name="uuv_plugin" filename="libuuv_underwater_object_ros_plugin.so">
+        <fluid_density>1028.0</fluid_density>
+        <flow_velocity_topic>hydrodynamics/current_velocity</flow_velocity_topic>
+        <debug>$(arg debug)</debug>
+        <!-- Adding the hydrodynamic and hydrostatic parameters for the vehicle -->
+        <xacro:bluerov2_hydro_model namespace="$(arg namespace)"/>
+        <xacro:hdt_hydro_model namespace="hdt"/>
+        <!-- <xacro:oberon7_hydro_model namespace="oberon7"/> -->
+        
+        <!--
+          In case other modules are added to the vehicle (such as a manipulator)
+          that also have link running with the underwater object plugin, they
+          should also be added in this block. For this, this new module should
+          have a file similar to gazebo.xacro above with the description of the
+          parameter necessary for the underwater object plugin to be initialized.
+        -->
+      </plugin>
+    </gazebo>
+  </xacro:bluerov2_base>
+
+  <!-- attach the arm to the arm -->
+  <xacro:hdt namespace="hdt" parent="$(arg namespace)/base_link" hardware_interface="$(arg hardware_interface)" >
+    <origin rpy="3.14 0 0" xyz="0. 0. -0.175"/>
+  </xacro:hdt>
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/$(arg namespace)</robotNamespace>
+      <robotParam>/$(arg namespace)/robot_description</robotParam>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+  <!-- Joint state publisher plugin -->
+  <xacro:default_joint_state_publisher namespace="$(arg namespace)" update_rate="50"/>
+
+  <!-- camera attached to rexrov2/base_link-->
+  <gazebo reference="bluerov2/base_link"> 
+    <sensor type="camera" name="camera_out">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+	      <pose>4 -4 2 0.0 0.275643 2.356190</pose>
+	      <view_controller>orbit</view_controller> 
+      <!--   <horizontal_fov>1.3962634</horizontal_fov>  -->
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>bluerov2/camera_out</cameraName>
+        <imageTopicName>/bluerov2/camera_out/image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>bluerov2/base_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>
