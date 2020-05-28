@@ -22,8 +22,11 @@ roslaunch bluerov2_hdt integration_scenario_bluerov2.launch
 rosrun bluerov2_hdt move_arm.py
 roslaunch uuv_control_utils send_waypoints_file.launch uuv_name:=bluerov2
 ```
-
+Move BlueROV2 and HDT arm:
 ![bluerov2_hdt_ocrasim](images/bluerov2_arm_ocrasimx2.gif)
+
+ArUco marker detection:
+![aruco_detection](image/../images/bluerov2_arm_aruco_detectionx2.gif)
 
 You can use keyboard to control the bluerov2:
 ![keyboard](images/keyboard.png)

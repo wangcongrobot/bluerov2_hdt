@@ -11,6 +11,9 @@ JOINT_NAMES = ['hdt/drive1_joint', 'hdt/drive2_joint', 'hdt/drive3_joint',
 Q1 = [2.2,0,-1.57,0,0,0]
 Q2 = [0.,0,0,0,0,0]
 Q3 = [1.5,-0.2,-1.57,0,0,0]
+DOWN = [0,0,-1.57,0,0,0]
+HOME = [0,0,0,0,0,0]
+Q1=Q2=Q3=DOWN
 
 client = None
 
