@@ -164,6 +164,10 @@
         <arg name="yaw"     value="$(arg yaw)"/>
     </include>
 
+    <include file="$(find bluerov2_hdt)/launch/aruco_detection.launch">
+
+    </include>
+
     <!-- <include file="$(find uuv_thruster_manager)/launch/thruster_manager.launch">
         <arg name="uuv_name"   value="$(arg namespace)" />
         <arg name="model_name" value="rexrov" />

@@ -24,3 +24,6 @@ roslaunch uuv_control_utils send_waypoints_file.launch uuv_name:=bluerov2
 ```
 
 ![bluerov2_hdt_ocrasim](images/bluerov2_arm_ocrasimx2.gif)
+
+You can use keyboard to control the bluerov2:
+![keyboard](images/keyboard.png)
