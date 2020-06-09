@@ -7,7 +7,8 @@ BlueROV2 with HDT arm in UUVSimulator. This repository is in development.
 
 ```
 cd ~/catkin_ws/src
-git clone -b realistic-sonar-sim-48 https://github.com/NickSadjoli/uuv_simulator.git 
+# git clone -b realistic-sonar-sim-48 https://github.com/NickSadjoli/uuv_simulator.git 
+git clone https://github.com/uuvsimulator/uuv_simulator.git
 git clone https://github.com/wangcongrobot/uuv_hdt_manpulator.git
 git clone https://github.com/wangcongrobot/bluerov2.git
 git clone https://github.com/YanielCarreno/orcawp1_integration.git

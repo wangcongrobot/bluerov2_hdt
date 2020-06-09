@@ -1,0 +1,98 @@
+
+<!-- zed camera -->
+
+  <gazebo reference="${namespace}/camera_link">
+    <sensor type="camera" name="zed_camera_left_sensor">
+      <update_rate>15.0</update_rate>
+      <camera name="zed_camera_left_camera">
+        <horizontal_fov>1.13</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>60</updateRate>
+        <cameraName>camera/zed</cameraName>
+        <imageTopicName>rgb/image_rect_color</imageTopicName>
+        <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0</hackBaseline><!-- set this to 0.12 for the second camera -->
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="camera_link_leftcam">
+    <sensor type="camera" name="zed_camera_left_sensor">
+      <update_rate>15.0</update_rate>
+      <camera name="zed_camera_left_camera">
+        <horizontal_fov>1.13</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>60</updateRate>
+        <cameraName>camera/zed</cameraName>
+        <imageTopicName>rgb/image_rect_color</imageTopicName>
+        <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.12</hackBaseline><!-- set this to 0.12 for the second camera -->
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="${namespace}/camera_link_rightcam">
+    <sensor type="camera" name="zed_camera_right_sensor">
+      <update_rate>15.0</update_rate>
+      <camera name="zed_camera_right_camera">
+        <horizontal_fov>1.13</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller_right" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>60</updateRate>
+        <cameraName>${namespace}/zed_right</cameraName>
+        <imageTopicName>rgb/image_rect_color_right</imageTopicName>
+        <cameraInfoTopicName>rgb/camera_info_right</cameraInfoTopicName>
+        <frameName>${namespace}/camera_link_right</frameName>
+        <hackBaseline>0.0</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>

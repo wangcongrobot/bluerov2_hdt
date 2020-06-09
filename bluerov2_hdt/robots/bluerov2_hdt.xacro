@@ -12,6 +12,15 @@
      limitations under the License.
 -->
 <robot name="bluerov2" xmlns:xacro="http://wiki.ros.org/xacro" >
+  <!-- Loading file with sensor macros -->
+
+  <!-- <xacro:include filename="$(find uuv_sensor_ros_plugins)/urdf/sensor_snippets.xacro"/> -->
+  <xacro:include filename="$(find bluerov2_hdt)/urdf/sensors/stereo_snippets.xacro"/>
+  <!-- <xacro:include filename="$(find bluerov2_hdt)/urdf/sensors/kinect.urdf.xacro"/> -->
+  <!-- <xacro:include filename="$(find sensors_description)/urdfs/sensors/kinect.urdf.xacro"/> -->
+  <xacro:include filename="$(find bluerov2_hdt)/urdf/sensors/kinect.urdf.xacro"/>
+
+  <!-- <xacro:include filename="$(find sensors_description)/urdfs/common.xacro"/> -->
   <!-- <xacro:arm name="update_rate" default="10"/> -->
   <xacro:arg name="debug" default="0"/>
   <xacro:arg name="namespace" default="bluerov2"/>
@@ -106,4 +115,17 @@
     </sensor>
   </gazebo>
 
+  <xacro:kinect_camera name="$(arg namespace)/kinect_camera" parent="$(arg namespace)/base_link">
+    <origin xyz="0.25 0 -0.1" rpy="0 0 0"/>
+  </xacro:kinect_camera>
+
+   <!-- Mount a stereo camera -->
+  <xacro:duo3d_camera namespace="$(arg namespace)" parent_link="$(arg namespace)/base_link">
+    <origin xyz="0.25 0 0." rpy="0 0 0"/>
+  </xacro:duo3d_camera> 
+
+  <!-- Mount a camera -->
+  <!-- <xacro:default_camera namespace="${namespace}" parent_link="${namespace}/base_link" suffix="front">
+    <origin xyz="0 0 0.2" rpy="0 0 0"/>
+  </xacro:default_camera> -->
 </robot>

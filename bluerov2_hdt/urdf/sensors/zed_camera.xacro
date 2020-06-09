@@ -1,0 +1,63 @@
+
+<xacro:macro name="camera_visual_geometry">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+        <mesh filename="package://bluerov2_hdt/meshes/zed.dae" />
+    </geometry>
+  </xacro:macro>
+
+<xacro:macro name="zed_camera" params="namespace parent_link *origin" >
+    <!-- zed camera -->
+    <link name="${namespace}/zed_camera_link">
+      <inertial>
+        <mass value="1e-3" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+      <visual>
+        <!-- Moving the camera visual back because it is visible in the camera sensor view -->
+        <origin xyz="-0.03 0 -0.03" rpy="0 0 3.1415926535898"/>
+        <xacro:camera_visual_geometry />
+      </visual>
+    </link>
+  
+    <joint name="${namespace}/zed_camera_joint" type="fixed">
+      <origin xyz="0.20 ${y} 0.134" rpy="0 0.261799 0"/>
+      <parent link="chassis"/>
+      <child link="zed_camera_link"/>
+      <axis xyz="0 0 1" />
+      <!-- <limit lower="0.0" upper="0.0" effort="0.0" velocity="0.0" /> -->
+    </joint>
+  
+    <!-- zed camera lenses -->
+    <!-- It seems these have to have a non-zero mass to have a camera attached? -->
+    <link name="${namespace}/camera_link"><!-- this needs to match the name in zed_wrapper/zed_tf.launch -->
+      <inertial>
+        <mass value="1e-3" />
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+    <link name="${namespace}/zed_camera_right_link">
+      <inertial>
+        <mass value="1e-3" />
+        <origin xyz="0 0.005 0.0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+  
+    <joint name="${namespace}/zed_camera_left_joint" type="fixed">
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+      <parent link="zed_camera_link"/>
+      <child link="camera_link"/>
+      <axis xyz="0 0 1" />
+    </joint>
+  
+    <joint name="${namespace}/zed_camera_right_joint" type="fixed">
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+      <parent link="zed_camera_link"/>
+      <child link="zed_camera_right_link"/>
+      <axis xyz="0 0 1" />
+    </joint>
+  </xacro:macro>
+
