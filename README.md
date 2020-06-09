@@ -13,6 +13,7 @@ git clone https://github.com/wangcongrobot/uuv_hdt_manpulator.git
 git clone https://github.com/wangcongrobot/bluerov2.git
 git clone https://github.com/YanielCarreno/orcawp1_integration.git
 git clone https://github.com/wangcongrobot/bluerov2_hdt.git
+git clone https://github.com/pal-robotics/aruco_ros.git
 cd ..
 catkin_make
 source devel/setup.bash
