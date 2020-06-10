@@ -48,7 +48,7 @@
       </inertial>
       <visual>
         <geometry>
-          <mesh filename="file://$(find c)/meshes/duo3d.dae"/>
+          <mesh filename="file://$(find bluerov2_hdt)/meshes/duo3d.dae"/>
         </geometry>
       </visual>
       <xacro:no_collision/>
