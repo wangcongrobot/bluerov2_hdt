@@ -16,13 +16,13 @@
 -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:property name="k1l" value="-0.0"/>
+  <xacro:property name="k1l" value="0.0"/>
   <xacro:property name="k2l" value="0.0"/>
   <xacro:property name="p1l" value="0.0"/>
   <xacro:property name="p2l" value="0.0"/>
   <xacro:property name="k3l" value="0.0"/>
 
-  <xacro:property name="k1r" value="-0.0"/>
+  <xacro:property name="k1r" value="0.0"/>
   <xacro:property name="k2r" value="0.0"/>
   <xacro:property name="p1r" value="0.0"/>
   <xacro:property name="p2r" value="0.0"/>
@@ -40,7 +40,7 @@
     </collision>
   </xacro:macro>
 
-  <xacro:macro name="duo3d_camera" params="namespace parent_link *origin">
+  <xacro:macro name="duo3d_stereo_camera" params="namespace parent_link *origin">
     <link name="${namespace}/duo3d_left_link">
       <inertial>
         <mass value="0.01"/>
@@ -48,7 +48,7 @@
       </inertial>
       <visual>
         <geometry>
-          <mesh filename="file://$(find bluerov2_hdt)/meshes/duo3d.dae"/>
+          <mesh filename="package://bluerov2_hdt/meshes/duo3d.dae"/>
         </geometry>
       </visual>
       <xacro:no_collision/>
@@ -76,11 +76,11 @@
           <far>5000</far>
         </clip>
         <distortion>
-          <k1>${k1l}</k1>
-          <k2>${k2l}</k2>
-          <k3>${k3l}</k3>
-          <p1>${p1l}</p1>
-          <p2>${p2l}</p2>
+          <k1>0</k1>
+          <k2>0</k2>
+          <k3>0</k3>
+          <p1>0</p1>
+          <p2>0</p2>
           <center>0.5 0.5</center>
         </distortion>
       </camera>
@@ -93,11 +93,11 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>${namespace}/duo3d_left_link</frameName>
         <hackBaseline>0.07</hackBaseline>
-        <distortionK1>${k1l}</distortionK1>
-        <distortionK2>${k2l}</distortionK2>
-        <distortionK3>${k3l}</distortionK3>
-        <distortionT1>${p1l}</distortionT1>
-        <distortionT2>${p2l}</distortionT2>
+        <distortionK1>0</distortionK1>
+        <distortionK2>0</distortionK2>
+        <distortionK3>0</distortionK3>
+        <distortionT1>0</distortionT1>
+        <distortionT2>0</distortionT2>
       </plugin>
       <always_on>1</always_on>
       <update_rate>30</update_rate>
@@ -135,11 +135,11 @@
           <far>5000</far>
         </clip>
         <distortion>
-          <k1>${k1l}</k1>
-          <k2>${k2l}</k2>
-          <k3>${k3l}</k3>
-          <p1>${p1l}</p1>
-          <p2>${p2l}</p2>
+          <k1>0</k1>
+          <k2>0</k2>
+          <k3>0</k3>
+          <p1>0</p1>
+          <p2>0</p2>
           <center>0.5 0.5</center>
         </distortion>
       </camera>
@@ -152,11 +152,11 @@
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>${namespace}/duo3d_right_link</frameName>
         <hackBaseline>0.07</hackBaseline>
-        <distortionK1>${k1l}</distortionK1>
-        <distortionK2>${k2l}</distortionK2>
-        <distortionK3>${k3l}</distortionK3>
-        <distortionT1>${p1l}</distortionT1>
-        <distortionT2>${p2l}</distortionT2>
+        <distortionK1>0</distortionK1>
+        <distortionK2>0</distortionK2>
+        <distortionK3>0</distortionK3>
+        <distortionT1>0</distortionT1>
+        <distortionT2>0</distortionT2>
       </plugin>
       <always_on>1</always_on>
       <update_rate>30</update_rate>
