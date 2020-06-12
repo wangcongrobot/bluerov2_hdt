@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- publish the pose of object -->
+  <node name="gazebo_object_pose_pub" pkg="bluerov2_hdt" type="gazebo_link_pose.py" output="screen" />
+
+</launch>
